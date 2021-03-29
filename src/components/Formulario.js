@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
 
 const Campo = styled.div`
@@ -42,17 +42,28 @@ const Button = styled.button`
 `;
 
 const Formulario = () => {
+  const [datos, guardarDatos] = useState({
+    marca: "",
+    year: "",
+    plan: "",
+  });
+
+  //extraer los datos del formulario
+  const { marca, year, plan } = datos;
+
+  //leer los datos del formulario y colocarlos en el state
+  const obtenerInformacion = (e) => {
+    guardarDatos({
+      ...datos,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   return (
     <form>
       <Campo>
-        <Label
-          htmlFor="
-                "
-        >
-          {" "}
-          Marca
-        </Label>
-        <Select name="" id="">
+        <Label> Marca</Label>
+        <Select name="marca" value={marca} onChange={obtenerInformacion}>
           <option value="">--Seleccione--</option>
           <option value="americano">Americano</option>
           <option value="europeo">Europeo</option>
@@ -60,14 +71,8 @@ const Formulario = () => {
         </Select>
       </Campo>
       <Campo>
-        <Label
-          htmlFor="
-                "
-        >
-          {" "}
-          Año
-        </Label>
-        <Select name="" id="">
+        <Label> Año</Label>
+        <Select name="year" value={year} id="" onChange={obtenerInformacion}>
           <option value="">-- Seleccione --</option>
           <option value="2021">2021</option>
           <option value="2020">2020</option>
@@ -82,10 +87,22 @@ const Formulario = () => {
         </Select>
       </Campo>
       <Campo>
-        <Label htmlFor="">Plan</Label>
-        <InputRadio type="radio" name="basico" px value="básico" />
+        <Label>Plan</Label>
+        <InputRadio
+          onChange={obtenerInformacion}
+          name="plan"
+          value="basico"
+          type="radio"
+          checked={plan === "basico"}
+        />
         Básico
-        <InputRadio type="radio" name="basico" value="completo" />
+        <InputRadio
+          onChange={obtenerInformacion}
+          type="radio"
+          name="plan"
+          value="completo"
+          checked={plan === "completo"}
+        />
         Completo
       </Campo>
       <Button>Cotizar</Button>
