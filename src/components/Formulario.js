@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 
+//styled components
 const Campo = styled.div`
   display: flex;
   margin-bottom: 1rem;
@@ -41,12 +42,25 @@ const Button = styled.button`
   }
 `;
 
+const Error = styled.div`
+  background-color: red;
+  color: white;
+  padding: 1rem;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 2rem;
+`;
+
+//react state
+
 const Formulario = () => {
   const [datos, guardarDatos] = useState({
     marca: "",
     year: "",
     plan: "",
   });
+
+  const [error, guardarError] = useState(false);
 
   //extraer los datos del formulario
   const { marca, year, plan } = datos;
@@ -59,8 +73,20 @@ const Formulario = () => {
     });
   };
 
+  //cuando el usuario presiona submit
+  const cotizarSeguro = (e) => {
+    e.preventDefault();
+
+    if (marca.trim() === "" || year.trim() === "" || plan.trim() === "") {
+      guardarError(true);
+      return;
+    }
+    guardarError(false);
+  };
+
   return (
-    <form>
+    <form onSubmit={cotizarSeguro}>
+      {error ? <Error>Todos los campos son obligatorios!</Error> : null}
       <Campo>
         <Label> Marca</Label>
         <Select name="marca" value={marca} onChange={obtenerInformacion}>
