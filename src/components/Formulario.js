@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
+import PropTypes from "prop-types";
 import { obtenerDiferenciaYear, calcularMarca, obtenerPlan } from "../helper";
 
 //styled components
@@ -100,7 +101,7 @@ const Formulario = ({ guardarResumen, guardarCargando }) => {
     setTimeout(() => {
       guardarCargando(false);
       guardarResumen({
-        cotizacion: resultado,
+        cotizacion: Number(resultado),
         datos,
       });
     }, 3000);
@@ -156,6 +157,11 @@ const Formulario = ({ guardarResumen, guardarCargando }) => {
       <Button>Cotizar</Button>
     </form>
   );
+};
+
+Formulario.propTypes = {
+  guardarResumen: PropTypes.func.isRequired,
+  guardarCargando: PropTypes.func.isRequired,
 };
 
 export default Formulario;
