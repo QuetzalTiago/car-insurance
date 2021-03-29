@@ -23,6 +23,8 @@ function App() {
     cotizacion: 0,
   });
 
+  const [cargando, guardarCargando] = useState(false);
+
   //extraer datos de resumen
   const { datos, cotizacion } = resumen;
   return (
@@ -30,9 +32,13 @@ function App() {
       <Header titulo={"Cotizador de seguros"} />
 
       <ContenedorFormulario>
-        <Formulario guardarResumen={guardarResumen}></Formulario>
-        {datos ? <Resumen datos={datos} /> : null}
-        {<Resultado cotizacion={cotizacion} />}
+        <Formulario
+          guardarResumen={guardarResumen}
+          guardarCargando={guardarCargando}
+        ></Formulario>
+        {cargando ? <Spinner /> : null}
+        {datos ? !cargando ? <Resumen datos={datos} /> : null : null}
+        {!cargando ? <Resultado cotizacion={cotizacion} /> : null}
       </ContenedorFormulario>
     </Contenedor>
   );

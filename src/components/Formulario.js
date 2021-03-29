@@ -52,7 +52,7 @@ const Error = styled.div`
   margin-bottom: 2rem;
 `;
 
-const Formulario = ({ guardarResumen }) => {
+const Formulario = ({ guardarResumen, guardarCargando }) => {
   //react state
   const [datos, guardarDatos] = useState({
     marca: "",
@@ -95,12 +95,15 @@ const Formulario = ({ guardarResumen }) => {
 
     resultado = parseFloat(incrementoPlan * resultado).toFixed(2);
 
-    console.log(resultado);
+    guardarCargando(true);
 
-    guardarResumen({
-      cotizacion: resultado,
-      datos,
-    });
+    setTimeout(() => {
+      guardarCargando(false);
+      guardarResumen({
+        cotizacion: resultado,
+        datos,
+      });
+    }, 3000);
   };
 
   return (

@@ -11,7 +11,7 @@ const Menasje = styled.p`
 `;
 
 const Total = styled.p`
-  color: #00838f;
+  color: #333;
   padding: 1rem;
   text-transform: uppercase;
   margin: 0;
